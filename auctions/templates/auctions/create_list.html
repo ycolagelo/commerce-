@@ -1,0 +1,15 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <h2> Please add your auction.</h2>
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form_a.as_p}}
+    </form>
+    <form method ="post">
+        {% csrf_token %}
+        {{form.as_p}}
+    </form>
+        <button type="button" class="btn btn-primary">Primary</button>
+        
+{% endblock %}
