@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Listing, Image
-from .forms import NewListForm, ImageForm
+from .models import Listing, Choices
+from .forms import NewListForm
 
 
 def index(request):
@@ -75,23 +75,25 @@ def register(request):
 def create_list(request):
     """ creating a new list entry by the user"""
     if request.method == "POST":
-        form = NewListForm(request.POST)
-        form_a = ImageForm(request.POST, request.FILES)
+        form = NewListForm(request.POST, request.FILES)
 
-        if form.is_valid() or form_a.is_valid():
+        if form.is_valid():
+            obj = Listing()
 
-            form.save()
-            form_a.save()
+            obj.price = form.cleaned_data['price']
+            obj.name = form.cleaned_data['name']
+            obj.description = form.cleaned_data['description']
+            obj.category = form.cleaned_data['category']
+            obj.image = request.FILES['image']
+            obj.save()
+
             return HttpResponseRedirect(reverse("index"))
 
-        else:
-            return render(request, "auctions/create_list.html", {
-                "message": "All required information must be provided."
-            })
-    else:
-        form = NewListForm()
-        form_a = ImageForm()
-
         return render(request, "auctions/create_list.html", {
-            "form": form, "form_a": form_a
+            "message": "All required information must be provided."
         })
+
+    return render(request, "auctions/create_list.html", {
+        'category_choices': Choices
+
+    })

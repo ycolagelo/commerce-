@@ -1,8 +1,8 @@
 from django import forms
-from .models import Image, Choices
+from .models import Listing, Choices
 
 
-class NewListForm(forms.Form):
+class NewListForm(forms.ModelForm):
     """classes for the created list"""
     price = forms.DecimalField(label="Price", required=True)
     description = forms.CharField(
@@ -11,10 +11,9 @@ class NewListForm(forms.Form):
         label="Category",
         required=True,
         widget=forms.Select(choices=Choices.choices))
+    name = forms.CharField(label="name", required=True)
+    image = forms.ImageField(label="image", required=False)
 
-
-class ImageForm(forms.ModelForm):
-    """form for image"""
     class Meta:
-        model = Image
-        fields = ["name", "image"]
+        model = Listing
+        fields = ("price", "description", "category", "name", "image")
