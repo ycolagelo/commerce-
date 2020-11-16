@@ -1,3 +1,20 @@
 body {
     padding: 10px;
 }
+
+.user-nav-item-circle {
+    background: white;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 25px;
+    color: purple;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.remove-after-nav::after {
+    border:none !important;
+    content: none !important;
+}
