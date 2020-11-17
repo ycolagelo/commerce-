@@ -5,20 +5,19 @@
 <div class="listing-card-container">
     {% for item in active_listings%}
     <div class="listing-card">
-        {% if item.image.url%}
-        <div class="index_image">
-            <img src="{{item.image.url}}" class="card-img-top index_image" alt="...">
-        </div>
-        {% else %}
-        <p>No Image</p>
-        {% endif %}
-
-        <div class="card-body">
-            <h5 class="card-title">{{item.name}}</h5>
-            <p class="card-text">{{item.description}}.</p>
-            <p class="card-text">{{item.price}}</p>
-            <a href="{% url 'details' item.id %}">Details</a>
-        </div>
+            <div class="listing-card-top">
+                {% if item.image.url%}
+                    <img src="{{item.image.url}}" class="card-image" alt="...">
+                {% else %}
+                    <p>No Image</p>
+                {% endif %}
+            </div>
+            <div class="listing-card-bottom">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">{{item.description}}.</p>
+                <p class="card-text">{{item.price}}</p>
+                <a href="{% url 'details' item.id %}">Details</a>
+            </div>
     </div>
     {% endfor %}
 </div>

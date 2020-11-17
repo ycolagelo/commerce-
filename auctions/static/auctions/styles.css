@@ -74,10 +74,26 @@ a:focus {
 }
 
 .listing-card {
-    width: 300px;
-    padding: 20px;
+    width: 275px;
+    padding: 15px;
     background-color: #E9ECEF;
     margin: 7px;
     border-radius: 7px;
     box-shadow: 5px 2px 2px #DEE2E6;
+    height: 400px
+}
+
+.listing-card-top {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.listing-card-bottom {
+    height: 50%
+}
+
+.card-image {
+    max-height: 95%;
+    max-width: 95%;
 }
