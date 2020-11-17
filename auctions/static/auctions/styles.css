@@ -1,81 +1,83 @@
-
 .user-nav-item-circle {
-    background: white;
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    border-radius: 25px;
-    color: purple;
-    font-weight: 900;
-    font-size: 1.2rem;
+  background: white;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  border-radius: 25px;
+  color: purple;
+  font-weight: 900;
+  font-size: 1.2rem;
 }
 
 .remove-after-nav::after {
-    border:none !important;
-    content: none !important;
+  border: none !important;
+  content: none !important;
 }
 
 body {
-    background-color: #f8f9fa;
-    color: #212529;
+  background-color: #f8f9fa;
+  color: #212529;
 }
 
 .header {
-    background-color: #6c757d;
-    color: #212529 !important;
+  background-color: #6c757d;
+  color: #212529 !important;
 }
 
-.navbar-light .navbar-nav .nav-link  {
-    color: #212529;
+.navbar-light .navbar-nav .nav-link {
+  color: #212529;
 }
 
-.nav-link:hover, .nav-link:active {
-    color: #000 !important;
+.nav-link:hover,
+.nav-link:active {
+  color: #000 !important;
 }
 
 .navbar {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
+button,
+.button-primary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #e9ecef;
+}
+
+.button-primary:hover,
+.button-primary:active,
+.button-primary:focus {
+  background-color: #495057 !important;
+  border-color: #495057 !important;
+  color: #dee2e6 !important;
+}
+
+a, a:visited {
+  color: #6c757d;
+}
+a:active,
+a:hover,
+a:focus {
+  color: #495057;
+}
+
+/* Index page */
 .al-title-heading {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
-.cards {
-    /* background-color: #dee2e6; */
-    padding: 25px;
-    margin: 20px;
-    /* border: 15px solid #f8f9fa; */
-    /* border-radius: 15px; */
-    /* height: 400px; */
-}
-.index_img {
-    max-width: 300px;
-    max-height:350px;
-} 
- /* .index_image{
-    height:100px;
-}
-.index_body{
-    height:180px;
-}  */
-
-button, .button-primary {
-    background-color: #6C757D;
-    border-color: #6C757D;
-    color: #E9ECEF;
+.listing-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.button-primary:hover, .button-primary:active, .button-primary:focus {
-    background-color: #495057 !important;
-    border-color: #495057 !important;
-    color: #DEE2E6 !important;
-}
-
-a {
-    color: #6C757D;
-}
-a:active, a:hover, a:focus, a:visited {
-    color: #495057;
+.listing-card {
+    width: 300px;
+    padding: 20px;
+    background-color: #E9ECEF;
+    margin: 7px;
+    border-radius: 7px;
+    box-shadow: 5px 2px 2px #DEE2E6;
 }
