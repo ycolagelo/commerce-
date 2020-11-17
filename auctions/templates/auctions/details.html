@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+
+{% block body%}
+
+<h2>Details</h2>
+<div class="row">
+    <div class="col-5">
+        <img src="{{product.image.url}}" class="card-img" alt="...">
+    </div>
+    <div class="col-7">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">{{product.description}}</p>
+        <p>{{product.price}}</p>
+        {%if user.is_authenticated %}
+        <div>
+            {% comment %} <a href="{% url 'watchlist' product.id%}">Add to watchlist</a> {% endcomment %}
+            <a href="#">Add to watchlist</a>
+        </div>
+        <div>
+            <lable for="bidForm">Bid on Item.</lable>
+            <input type="number" step="0.01" name="bid" id="bidForm">
+            <button type="submit" class="btn btn-primary button-primary" for="nidForm">Submit Bid</button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock%}

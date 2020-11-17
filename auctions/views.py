@@ -97,3 +97,20 @@ def create_list(request):
         'category_choices': Choices
 
     })
+
+
+def details(request, item_id):
+    if request.method == "GET":
+        product = Listing.objects.get(pk=item_id)
+
+    return render(request, "auctions/details.html", {
+        "product": product
+    })
+
+
+def watchlist(request, product_id):
+    if request.method == "GET":
+        product = listing.objects.get(pk=product_id)
+        Watchlist.save(product)
+        # check how to save to the watchlist database and see how to display a success message.
+        # Work on displaying the watchlist  page

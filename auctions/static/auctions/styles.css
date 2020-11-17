@@ -42,10 +42,40 @@ body {
     margin-bottom: 25px;
 }
 
-.listing-card {
-    background-color: #dee2e6;
+.cards {
+    /* background-color: #dee2e6; */
     padding: 25px;
-    border: 15px solid #f8f9fa;
-    border-radius: 25px;
-    height: 400px;
+    margin: 20px;
+    /* border: 15px solid #f8f9fa; */
+    /* border-radius: 15px; */
+    /* height: 400px; */
+}
+.index_img {
+    max-width: 300px;
+    max-height:350px;
+} 
+ /* .index_image{
+    height:100px;
+}
+.index_body{
+    height:180px;
+}  */
+
+button, .button-primary {
+    background-color: #6C757D;
+    border-color: #6C757D;
+    color: #E9ECEF;
+}
+
+.button-primary:hover, .button-primary:active, .button-primary:focus {
+    background-color: #495057 !important;
+    border-color: #495057 !important;
+    color: #DEE2E6 !important;
+}
+
+a {
+    color: #6C757D;
+}
+a:active, a:hover, a:focus, a:visited {
+    color: #495057;
 }

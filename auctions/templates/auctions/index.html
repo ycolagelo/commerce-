@@ -2,15 +2,26 @@
 
 {% block body %}
     <h2 class="al-title-heading">Active Listings</h2>
-
-    <div class="row">    
+    <div class="row cards">
         {% for item in active_listings%}
-            <div class="col-3 col-md-3 listing-card">
-                <h5> {{item.name}}</h5>
-                <img src="{{item.image.url}}" width ="150px" height="200px">
-                <p>{{item.price}}</p>
-                <p>{{item.description}}</p>
+             <div class="col-3 col-md-3 cards">
+                <div class="card mb-3  shadow-sm" style="width: 18rem;">
+                    {% if item.image.url%}
+                    <div class="index_image">
+                        <img src="{{item.image.url}}" class="card-img-top index_image" alt="...">
+                    </div>
+                    {% else %}
+                    <p>No Image</p>
+                    {% endif %}
+
+                    <div class="card-body index_body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text">{{item.description}}.</p>
+                        <p class="card-text">{{item.price}}</p>
+                        <a href="{% url 'details' item.id %}">Details</a>
+                    </div>
+                </div>
             </div>
-        {% endfor %}  
+    {% endfor %}
     </div>
 {% endblock %}
