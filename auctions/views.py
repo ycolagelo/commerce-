@@ -3,8 +3,8 @@ from .models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from .models import Listing, Choices
+from django.shortcuts import render, get_object_or_404
+from .models import Listing, Choices, Watchlist
 from .forms import NewListForm
 
 
@@ -109,8 +109,49 @@ def details(request, item_id):
 
 
 def watchlist(request, product_id):
-    if request.method == "GET":
-        product = listing.objects.get(pk=product_id)
-        Watchlist.save(product)
-        # check how to save to the watchlist database and see how to display a success message.
-        # Work on displaying the watchlist  page
+    """update the watchlist"""
+    listing = Listing.objects.get(pk=product_id)
+    user = request.user
+    watchlist_products = Watchlist.objects.filter(
+        user_id=user.id).all()
+
+    is_in = False
+    for w_p in watchlist_products:
+        if listing == w_p.listing:
+            is_in = True
+
+    if is_in:
+
+        return render(request, "auctions/watchlist.html", {
+            "listing": listing
+        })
+
+    new_watchlist = Watchlist(user=request.user, listing=listing)
+    new_watchlist.save()
+    return HttpResponseRedirect(reverse("current_watchlist"))
+
+
+def current_watchlist(request):
+    """Lists all the items in the users watchlist"""
+    user = request.user
+    listings = Watchlist.objects.filter(user_id=user.id).all()
+
+    return render(request, "auctions/current_watchlist.html", {
+        "listings": listings
+    })
+
+
+def watchlist_delete(request, listing_id):
+    """delete item that is duplicated in the watchlist"""
+    item = get_object_or_404(Watchlist, listing=listing_id)
+    if request.method == "POST":
+        item.delete()
+    return HttpResponseRedirect(reverse("current_watchlist"))
+
+
+# def product_bid(request, ):
+
+
+# pass
+# find a  way to save currency
+# continue with validation for bids

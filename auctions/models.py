@@ -52,8 +52,8 @@ class Bid(models.Model):
 
 class Comment(models.Model):
     """models for the comments created by the user"""
-    listing_id = models.ForeignKey(Listing, on_delete=models.PROTECT)
-    user_id = models.ManyToManyField(User)
+    listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     comments = models.CharField(max_length=280)
 
     def __str__(self):
@@ -62,8 +62,9 @@ class Comment(models.Model):
 
 class Watchlist(models.Model):
     """models for user creating a watchlist"""
-    listing_id = models.ForeignKey(Listing, on_delete=models.PROTECT)
-    user_id = models.ManyToManyField(User)
+    listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
+    user = models.ForeignKey(
+        User, on_delete=models.PROTECT)
 
     def __str__(self):
         return f"{self.user_id} added {self.listing_id}"
