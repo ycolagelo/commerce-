@@ -1,19 +1,18 @@
 from django.urls import reverse
+from django.db.models import Max, FloatField
 from .models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from .models import Listing, Choices, Watchlist
-from .forms import NewListForm
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Listing, Choices, Watchlist, Bid
+from .forms import NewListForm, NewBid
+from .error_codes import INVALID_BID, ERROR_MESSAGES
 
 
 def index(request):
     """renders the active list template"""
     active_listings = Listing.objects.filter(state="active").all()
-
-    # for listing in active_listings:
-    #     listing.image.image
 
     return render(request, "auctions/index.html", {
         "active_listings": active_listings
@@ -99,12 +98,23 @@ def create_list(request):
     })
 
 
-def details(request, item_id):
+def listing(request, item_id):
     if request.method == "GET":
         product = Listing.objects.get(pk=item_id)
+        lister = product.user_id
+        bids = Bid.objects.filter(listing=product).all()
+        aggregate_result = bids.aggregate(
+            max=Max('bidding_price', output_field=FloatField()))
+        highest_bid = aggregate_result['max']
+        user = request.user
+        # value, category = (product.category)
 
-    return render(request, "auctions/details.html", {
-        "product": product
+    return render(request, "auctions/listing.html", {
+        "product": product,
+        "lister": lister,
+        "highest_bid": highest_bid,
+        "user": user,
+        # "category": category
     })
 
 
@@ -149,9 +159,39 @@ def watchlist_delete(request, listing_id):
     return HttpResponseRedirect(reverse("current_watchlist"))
 
 
-# def product_bid(request, ):
+def place_bid(request, product_id):
+    """Allows user to place bid on an item"""
+    user = request.user
+    listing = Listing.objects.get(pk=product_id)
+    bids = Bid.objects.filter(listing=listing).all()
+    original_price = Listing.objects.get(pk=product_id)
+
+    if request.method == "POST":
+        form = NewBid(request.POST)
+        obj = Bid()
+        if form.is_valid():
+            current_bid = form.cleaned_data['bid']
+            aggregate_result = bids.aggregate(
+                max=Max('bidding_price', output_field=FloatField()))
+            max_bidding_price = aggregate_result['max'] or 0
+
+            if current_bid >= original_price.price and current_bid > max_bidding_price:
+                obj.listing = listing
+                obj.user = user
+                obj.bidding_price = current_bid
+                obj.save()
+                return HttpResponseRedirect(reverse("current_watchlist"))
+            else:
+                return redirect("error", code=INVALID_BID)
+        else:
+            return redirect("error", code=INVALID_BID)
+
+    return HttpResponseRedirect(reverse("current_watchlist"))
 
 
-# pass
-# find a  way to save currency
-# continue with validation for bids
+def error(request, code):
+    """generates errors"""
+    error_messages = ERROR_MESSAGES[code]
+    return render(request, 'auctions/error.html', {
+        "error": error_messages
+    })

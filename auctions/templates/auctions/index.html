@@ -15,8 +15,8 @@
             <div class="listing-card-bottom">
                 <h5 class="card-title">{{item.name}}</h5>
                 <p class="card-text">{{item.description}}.</p>
-                <p class="card-text">{{item.price}}</p>
-                <a href="{% url 'details' item.id %}">Details</a>
+                <p class="card-text">${{item.price}}</p>
+                <a href="{% url 'listing' item.id %}">Details</a>
             </div>
     </div>
     {% endfor %}

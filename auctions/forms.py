@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing, Choices
+from .models import Listing, Choices, Bid
 
 
 class NewListForm(forms.ModelForm):
@@ -17,3 +17,12 @@ class NewListForm(forms.ModelForm):
     class Meta:
         model = Listing
         fields = ("price", "description", "category", "name", "image")
+
+
+class NewBid(forms.ModelForm):
+    """verification of the bid form"""
+    bid = forms.DecimalField(label="bid", required=True)
+
+    class Meta:
+        model = Bid
+        fields = ("bid",)

@@ -103,3 +103,29 @@ a:focus {
     /* text-align: center !important; */
     margin-bottom: revert;
 }
+
+
+/* Watchlist */
+.cwl-row {
+  height: 130px;
+  margin: 25px;
+  padding: 15px 25px;
+  background-color: #E9ECEF;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cwl-row-right {
+  /* margin-right: 25px; */
+}
+.cwl-row-left {
+  /* margin-left: 25px; */
+}
+
+.cwl-list-image {
+  max-height: 90px;
+}
+
+.cwl-link-text {
+
+}

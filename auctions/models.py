@@ -40,11 +40,12 @@ class Listing(models.Model):
 
 class Bid(models.Model):
     """models for the bids created on the listings"""
-    listing_id = models.ForeignKey(
+    listing = models.ForeignKey(
         Listing, on_delete=models.CASCADE, related_name="bid_product")
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="bidder")
-    bidding_price = models.IntegerField(default=0)
+    bidding_price = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"{self.user_id} placed {self.bidding_price} on {self.listing_id}"

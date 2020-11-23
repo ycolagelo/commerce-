@@ -1,18 +1,21 @@
 {% extends "auctions/layout.html" %}
 {% block body %}
+<div class="container">
     <h5>Items in your watchlist</h5>
-    <div class="cotainer">
-        {% for listing in listings %}
-        <div class="">
-            <img src="{{listing.listing.image.url}}">
+
+    {% for listing in listings %}
+    <div class="cwl-row">
+        <div class="cwl-row-left">
+            <img class="cwl-list-image" src="{{listing.listing.image.url}}">
         </div>
-        <div>
-            <p>{{listing.listing.name}}</p>
-            <p>{{listing.listing.description}}</p>
-            <p>{{listing.listing.price}}</p>
+        <div class="cwl-row-right">
+            <a href="{% url 'listing' listing.listing.id%}">
+                <div class="cwl-link-text">{{listing.listing.name}}</div>
+                <div class="cwl-link-text">{{listing.listing.description}}</div>
+                <div class="cwl-link-text">${{listing.listing.price}}</div>
+            </a>
         </div>
-        {% endfor %}
     </div>
-
-
+    {% endfor %}
+</div>
 {% endblock %}
