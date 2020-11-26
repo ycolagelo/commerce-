@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing, Choices, Bid
+from .models import Listing, Choices, Bid, Comment
 
 
 class NewListForm(forms.ModelForm):
@@ -26,3 +26,12 @@ class NewBid(forms.ModelForm):
     class Meta:
         model = Bid
         fields = ("bid",)
+
+
+class CommentForm(forms.ModelForm):
+    """Form for the comment"""
+    comments = forms.CharField(label="comment", required=True)
+
+    class Meta:
+        model = Comment
+        fields = ("comments",)

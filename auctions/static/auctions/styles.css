@@ -18,15 +18,24 @@
 body {
   background-color: #f8f9fa;
   color: #212529;
+  font-family: 'Open Sans';
 }
 
 .header {
-  background-color: #ADB5BD;
+  background-color: #adb5bd;
   color: #212529 !important;
+  text-decoration: none;
+}
+
+.navbar-brand {
+  font-weight: bolder;
+  text-decoration: none;
 }
 
 .navbar-light .navbar-nav .nav-link {
   color: #212529;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .nav-link:hover,
@@ -53,13 +62,16 @@ button,
   color: #dee2e6 !important;
 }
 
-a, a:visited {
+a,
+a:visited {
   color: #6c757d;
+  text-decoration: underline;
 }
 a:active,
 a:hover,
 a:focus {
   color: #495057;
+  text-decoration: underline;
 }
 
 /* Index page */
@@ -68,49 +80,48 @@ a:focus {
 }
 
 .listing-card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .listing-card {
-    width: 275px;
-    padding: 15px;
-    background-color: #E9ECEF;
-    margin: 7px;
-    border-radius: 7px;
-    box-shadow: 5px 2px 2px #DEE2E6;
-    height: 400px
+  width: 275px;
+  padding: 15px;
+  background-color: #e9ecef;
+  margin: 7px;
+  border-radius: 7px;
+  box-shadow: 5px 2px 2px #dee2e6;
+  height: 400px;
 }
 
 .listing-card-top {
-    height: 50%;
-    display: flex;
-    /* background-color: #f8f9fa; */
-    justify-content: center;
+  height: 50%;
+  display: flex;
+  /* background-color: #f8f9fa; */
+  justify-content: center;
 }
 
 .listing-card-bottom {
-    height: 50%
+  height: 50%;
 }
 
 .card-image {
-    max-height: 95%;
-    max-width: 95%;
-    border-radius: 5px;
+  max-height: 95%;
+  max-width: 95%;
+  border-radius: 5px;
 }
 .heading {
-    /* text-align: center !important; */
-    margin-bottom: revert;
+  /* text-align: center !important; */
+  margin-bottom: revert;
 }
-
 
 /* Watchlist */
 .cwl-row {
   height: 130px;
   margin: 25px;
   padding: 15px 25px;
-  background-color: #E9ECEF;
+  background-color: #e9ecef;
   display: flex;
   justify-content: space-between;
 }
@@ -126,6 +137,26 @@ a:focus {
   max-height: 90px;
 }
 
-.cwl-link-text {
+.congrats_message {
+  color: rgb(115, 155, 115);
+}
 
+.lst-comments-heading {
+  font-weight: bold;
+}
+
+.lst-line {
+  margin-top: 10px;
+}
+
+.lst-line p {
+  margin-bottom: 0;
+}
+.lst-description {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.lst-description-container {
+  margin-bottom: 15px;
 }

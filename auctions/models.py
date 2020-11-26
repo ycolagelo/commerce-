@@ -41,9 +41,9 @@ class Listing(models.Model):
 class Bid(models.Model):
     """models for the bids created on the listings"""
     listing = models.ForeignKey(
-        Listing, on_delete=models.CASCADE, related_name="bid_product")
+        Listing, on_delete=models.CASCADE, related_name="bid_product", null=True)
     user = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="bidder")
+        User, on_delete=models.PROTECT, related_name="bidder", null=True)
     bidding_price = models.DecimalField(
         max_digits=10, decimal_places=2, default=0)
 
@@ -53,12 +53,12 @@ class Bid(models.Model):
 
 class Comment(models.Model):
     """models for the comments created by the user"""
-    listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    listing = models.ForeignKey(Listing, on_delete=models.PROTECT, null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     comments = models.CharField(max_length=280)
 
     def __str__(self):
-        return f"{self.user_id} mentioned {self.comments} on {self.listing_id}"
+        return f"{self.user} mentioned {self.comments} on {self.listing}"
 
 
 class Watchlist(models.Model):
@@ -69,3 +69,5 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.user_id} added {self.listing_id}"
+
+# class Categories()

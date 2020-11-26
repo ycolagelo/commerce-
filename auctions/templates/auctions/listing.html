@@ -8,15 +8,15 @@
             <img src="{{product.image.url}}" class="card-img" alt="...">
         </div>
         <div class="col-7">
-            <h5 class="card-title">{{product.name}}</h5>
-            <div class="card-text">{{product.description}}</div>
-            <p>${{product.price}}</p>
-            {%if user.is_authenticated %}
-            <div>
-               <p> <a href="{% url 'watchlist' product.id %}">Add to Watchlist</a></p>
-                {% comment %} <a href="#">Add to watchlist</a> {% endcomment %}
+            <h1>{{product.name}}</h1>
+            <div class="lst-line lst-description-container">
+                <p class="lst-description">{{product.description}}</p>
             </div>
-            <div>
+                <h5>${{product.price}}</h5>
+            {% comment %} <div class="lst-line">
+            </div> {% endcomment %}
+            {%if user.is_authenticated %}
+            <div class="lst-line">
                 <lable for="bidForm">Bid on Item.</lable>
                 <form action="{% url 'place_bid' product.id %}" method="post">
                     {% csrf_token %}
@@ -24,26 +24,51 @@
                     <button type="submit" class="btn btn-primary button-primary" for="nidForm">Submit Bid</button>
                 </form>
             </div>
-            <div>Current Bid: ${{highest_bid}}</div>
-            <div>
-                <p><h6>Details:</h6></p>
+            <div class="lst-line">Current Bid: ${{highest_bid}}</div>
+            <div class="lst-line">
+                <p><strong>Details:</strong></p>
                 <ul>
+                    {% comment %} TODO: Handle Nothing value of `lister` {% endcomment %}
                     <li>Listed by: {{lister}}</li>
                     <li>Category:{{product.category}}</li>                  
                 </ul>
-
             </div>
-            {% if lister == user %}
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary button-primary">Close bid</button>
-                </form>
-            {% endif %}
+            <div class="lst-line">
+               <a style="margin-right: 5px;" href="{% url 'watchlist' product.id %}">Add to Watchlist</a>
+               <a href="{% url 'comment' product.id %}">Add Comment</a>
+            </div>
+            <div class="lst-line"> 
+                {% if lister == user %}
+                    <form action="{%url 'listing' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary button-primary">Close bid</button>
+                    </form>
+                {% endif %}
+            </div>
+            <div class="lst-line">
+                {%if highest_bidder == user and product.state == "non active" %}
+                    <strong class="congrats_message"> Congratulations you have the highest bid</strong>
+                {% endif %}
+            </div>
+
             {%else%}
             <div>
                 <i>Sign in to place bid.</i>
             </div>
             {% endif %}
+        </div>
+    </div>
+    <div>
+        <div>
+            {% if comments %}
+                <h6 class="lst-comments-heading">Comments</h6>
+                {%for comment in comments%}
+                <div>
+                    <strong>{{comment.user}}:</strong>
+                    {{comment.comments}}        
+                </div>
+                {% endfor %}
+            {%endif %}
         </div>
     </div>
 </div>

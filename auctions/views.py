@@ -5,9 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Listing, Choices, Watchlist, Bid
-from .forms import NewListForm, NewBid
-from .error_codes import INVALID_BID, ERROR_MESSAGES
+from .models import Listing, Choices, Watchlist, Bid, Comment
+from .forms import NewListForm, NewBid, CommentForm
+from .error_codes import INVALID_BID, ERROR_MESSAGES, INVALID_MESSAGE
 
 
 def index(request):
@@ -84,6 +84,7 @@ def create_list(request):
             obj.description = form.cleaned_data['description']
             obj.category = form.cleaned_data['category']
             obj.image = request.FILES['image']
+            obj.user_id = request.user
             obj.save()
 
             return HttpResponseRedirect(reverse("index"))
@@ -99,21 +100,35 @@ def create_list(request):
 
 
 def listing(request, item_id):
-    if request.method == "GET":
-        product = Listing.objects.get(pk=item_id)
-        lister = product.user_id
-        bids = Bid.objects.filter(listing=product).all()
-        aggregate_result = bids.aggregate(
-            max=Max('bidding_price', output_field=FloatField()))
-        highest_bid = aggregate_result['max']
-        user = request.user
-        # value, category = (product.category)
+
+    product = Listing.objects.get(pk=item_id)
+    lister = product.user_id
+    bids = Bid.objects.filter(listing=product).all()
+    aggregate_result = bids.aggregate(
+        max=Max('bidding_price', output_field=FloatField()))
+    highest_bid = aggregate_result['max']
+    user = request.user
+    highest_bidder = bids.filter(bidding_price=highest_bid).first()
+    comments = Comment.objects.filter(listing=product).all()
+    # value, category = (product.category)
+
+    if request.method == "POST":
+        product.state = "non active"
+        product.save()
+
+        return HttpResponseRedirect(reverse("index"))
+
+    highest_bidder_user = None
+    if highest_bidder:
+        highest_bidder_user = highest_bidder.user
 
     return render(request, "auctions/listing.html", {
         "product": product,
         "lister": lister,
         "highest_bid": highest_bid,
         "user": user,
+        "highest_bidder": highest_bidder_user,
+        "comments": comments
         # "category": category
     })
 
@@ -194,4 +209,24 @@ def error(request, code):
     error_messages = ERROR_MESSAGES[code]
     return render(request, 'auctions/error.html', {
         "error": error_messages
+    })
+
+
+def comment(request, product_id):
+    """Adds comments to listings"""
+    listing = Listing.objects.get(pk=product_id)
+    user = request.user
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        obj = Comment()
+        if form.is_valid():
+            obj.comments = form.cleaned_data['comments']
+            obj.listing = listing
+            obj.user = user
+            obj.save()
+            return redirect("listing", item_id=listing.id)
+        return redirect("error", code=INVALID_MESSAGE)
+    return render(request, 'auctions/comment.html', {
+        "form": CommentForm,
+        "listing": listing
     })

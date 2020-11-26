@@ -1,0 +1,21 @@
+{% extends 'auctions/layout.html' %}
+{% block body %}
+    <div class = "container">
+        <div>
+            <p>{{listing.name}}</p>    
+            <img src="{{listing.image.url}}" class="cwl-list-image" alt="...">
+            <p>{{listing.description}}</p>
+            <p>${{listing.price}}</p>
+        </div>
+        <div class = "form-group">
+            <form action ="{% url 'comment' listing.id %}" method = 'post'>
+                {% csrf_token %}
+                <lable>Add comment</label>
+                <textarea class="form-control" name="comments" required maxlength='280'></textarea> 
+        </div>
+                <button type="submit" class="btn btn-primary button-primary">Submit</button>
+            
+            </from>
+        
+    </div>
+{% endblock %}
