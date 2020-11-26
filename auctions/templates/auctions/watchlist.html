@@ -3,13 +3,13 @@
     <div class="container">
         <h4 class="heading">This product is already in your watchlist.</h4>
         <div class="row">
-            <div class="col-4">
-                <img src={{listing.image.url}}>
+            <div class="col-5">
+                <img class="card-img" src={{listing.image.url}}>
             </div>
             <div class="col-6">
                 <p>{{listing.name}}</p>
                 <p>{{listing.description}}</p>
-                <p>{{listing.price}}</p>
+                <p>${{listing.price}}</p>
                 <form action ="{% url 'watchlist_delete' listing.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary button-primary" for="nidForm">DELETE ITEM FROM LIST</button>

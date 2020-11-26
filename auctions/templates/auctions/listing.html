@@ -30,7 +30,7 @@
                 <ul>
                     {% comment %} TODO: Handle Nothing value of `lister` {% endcomment %}
                     <li>Listed by: {{lister}}</li>
-                    <li>Category:{{product.category}}</li>                  
+                    <li>Category: {{product.get_category_display}}</li>                  
                 </ul>
             </div>
             <div class="lst-line">

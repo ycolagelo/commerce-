@@ -1,14 +1,14 @@
 {% extends "auctions/layout.html" %}
 {% block body %}
 <div class="container">
-    <h5>Items in your watchlist</h5>
+    <h5 class="al-title-heading">Items in your watchlist</h5>
 
     {% for listing in listings %}
-    <div class="cwl-row">
-        <div class="cwl-row-left">
+    <div class="cwl-row row">
+        <div class="cwl-row-left col-6">
             <img class="cwl-list-image" src="{{listing.listing.image.url}}">
         </div>
-        <div class="cwl-row-right">
+        <div class="cwl-row-right col-5">
             <a href="{% url 'listing' listing.listing.id%}">
                 <div class="cwl-link-text">{{listing.listing.name}}</div>
                 <div class="cwl-link-text">{{listing.listing.description}}</div>

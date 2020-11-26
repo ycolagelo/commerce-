@@ -230,3 +230,13 @@ def comment(request, product_id):
         "form": CommentForm,
         "listing": listing
     })
+
+
+def category(request, choice):
+    """groups categories"""
+    active_listings = Listing.objects.filter(
+        category=choice, state="active").all()
+
+    return render(request, 'auctions/category.html', {
+        "active_listings": active_listings
+    })

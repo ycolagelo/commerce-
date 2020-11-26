@@ -77,6 +77,7 @@ a:focus {
 /* Index page */
 .al-title-heading {
   margin-bottom: 25px;
+  text-align: center;
 }
 
 .listing-card-container {
@@ -103,7 +104,7 @@ a:focus {
 }
 
 .listing-card-bottom {
-  height: 50%;
+  height: 80%;
 }
 
 .card-image {
@@ -159,4 +160,10 @@ a:focus {
 
 .lst-description-container {
   margin-bottom: 15px;
+}
+.card-price { 
+  margin-bottom: auto;
+}
+.dropdown-link {
+  text-decoration: none;
 }

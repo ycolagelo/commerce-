@@ -1,7 +1,5 @@
-{% extends "auctions/layout.html" %}
-
+{% extends 'auctions/layout.html' %}
 {% block body %}
-
 <h2 class="al-title-heading">Active Listings</h2>
 <div class="listing-card-container">
     {% for item in active_listings%}
@@ -16,10 +14,13 @@
             <div class="listing-card-bottom">
                 <h5 class="card-title">{{item.name}}</h5>
                 <p class="card-text">{{item.description}}.</p>
-                <p class="card-text card-price">${{item.price}}</p>
-                <a href="{% url 'listing' item.id %}">Details</a>
+                <div class="card-text">${{item.price}}</div>
+                <div><a href="{% url 'listing' item.id %}">Details</a></div>
             </div>
     </div>
     {% endfor %}
 </div>
+
 {% endblock %}
+
+{% comment %} finsih up the display edit for the category page {% endcomment %}

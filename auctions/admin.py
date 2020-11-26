@@ -5,7 +5,7 @@ from .models import Listing, Bid, Comment, Watchlist
 
 
 class ListingsAdmin(admin.ModelAdmin):
-    list_display = ("id", "price", "description", "state",
+    list_display = ("id", "name", "price", "description", "state",
                     "category", "image", "user_id")
 
 

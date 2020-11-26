@@ -15,5 +15,6 @@ urlpatterns = [
          views.watchlist_delete, name="watchlist_delete"),
     path("<int:product_id>/place_bid", views.place_bid, name="place_bid"),
     path("error/<int:code>", views.error, name="error"),
-    path("<int:product_id>/comment", views.comment, name="comment")
+    path("<int:product_id>/comment", views.comment, name="comment"),
+    path("<str:choice>/category", views.category, name="category")
 ]
