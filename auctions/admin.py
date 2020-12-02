@@ -17,3 +17,7 @@ admin.site.register(Listing, ListingsAdmin)
 admin.site.register(Bid)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Watchlist)
+
+
+def edit(Listing, request, queryset):
+    queryset.update()

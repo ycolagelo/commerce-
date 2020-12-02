@@ -1,6 +1,6 @@
 # Error codes
 INVALID_BID = 1
-INVALID_MESSAGE = 1
+INVALID_MESSAGE = 2
 
 # error messages
 
